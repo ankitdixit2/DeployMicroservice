@@ -17,7 +17,7 @@ node {
              sh "docker build -t eiadatabase ./eiadatabase"
              sh "docker tag users_service:latest eiaconsulting/docker_users-service"
              sh "docker tag eiadatabase:latest eiaconsulting/docker_db"
-             sh "docker push eiaconsulting/users_service"
+             sh "docker push eiaconsulting/docker_users-service"
              sh "docker push eiaconsulting/docker_db"
                                      
     }
