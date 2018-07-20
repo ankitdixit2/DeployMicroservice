@@ -13,9 +13,14 @@ node {
             sh "docker-compose build"
       //      sh "docker tag mysqlnodejsmicroservice_db ankurdixit82/mysqlnodejsmicroservice_db:latest"
      //       sh "docker tag mysqlnodejsmicroservice_users-service ankurdixit82/mysqlnodejsmicroservice_users-service:latest"
-            sh "docker push eiaconsulting/docker_db:latest"    
-            sh "docker push eiaconsulting/docker_users-service:latest"
-            
+            docker build -t users_service .
+             sh "docker build -t eiadatabase .
+             sh "docker tag users_service:latest eiaconsulting/users_service
+             sh "docker tag eiadatabase:latest eiaconsulting/eiadatabase
+             sh "docker push eiaconsulting/users_service"
+             sh "docker push eiaconsulting/eiadatabase
+             sh "docker build eiaconsulting/docker_db:latest"
+                         
     }
      try {
       
