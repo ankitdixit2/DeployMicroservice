@@ -10,11 +10,11 @@ node {
     checkout scm
     stage('build') {
         /* Test docker  compose  */
-            sh "docker-compose build"
+      //      sh "docker-compose build"
       //      sh "docker tag mysqlnodejsmicroservice_db ankurdixit82/mysqlnodejsmicroservice_db:latest"
      //       sh "docker tag mysqlnodejsmicroservice_users-service ankurdixit82/mysqlnodejsmicroservice_users-service:latest"
-             sh "docker build -t users_service"
-             sh "docker build -t eiadatabase"
+             sh "docker build -t users_service ./users-service"
+             sh "docker build -t eiadatabase ./eiadatabase"
              sh "docker tag users_service:latest eiaconsulting/docker_users-service"
              sh "docker tag eiadatabase:latest eiaconsulting/docker_db"
              sh "docker push eiaconsulting/users_service"
