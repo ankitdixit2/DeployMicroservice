@@ -8,6 +8,7 @@ def notifySlack(String buildStatus = 'STARTED') {
 }
 node {
     checkout scm
+    try {
     stage('build') {
         /* Test docker  compose  */
       //      sh "docker-compose build"
@@ -19,16 +20,15 @@ node {
              sh "docker tag users_service:latest eiaconsulting/docker_users-service"
              sh "docker tag eiadatabase:latest eiaconsulting/docker_db"
              sh "docker push eiaconsulting/docker_users-service"
-             sh "docker push eiaconsulting/docker_db"
-                                     
+             sh "docker push eiaconsulting/docker_db"                                     
     }
-     try {
-      
+        currentBuild.result = "SUCCESS"
         notifySlack(currentBuild.result)
-
-        // Existing build steps.
-    } catch (e) {
-        currentBuild.result = 'FAILURE'
-        throw e
-    }
+       
+  } catch (e) {
+    // If there was an exception thrown, the build failed
+    currentBuild.result = "FAILED"
+    //throw e
+    notifySlack(currentBuild.result)
+  }    
 }
