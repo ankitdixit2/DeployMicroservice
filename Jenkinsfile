@@ -4,7 +4,7 @@ def notifySlack(String buildStatus = 'STARTED') {
     // Build status of null means success.
     buildStatus = buildStatus ?: 'SUCCESS'
     
-    def msg = "${buildStatus}: `${env.JOB_NAME}` #${env.BUILD_NUMBER}:-Microservice image has been created and pushed to Docker registry by ankit.dixit"
+    def msg = "${buildStatus}: `${env.JOB_NAME}` #${env.BUILD_NUMBER}:-Microservice image has been created and pushed into Docker registry by ankit.dixit"
 //Test
     slackSend(message: msg)
     userNotification(buildStatus)
@@ -40,7 +40,7 @@ def userNotification(String buildStatus)
         channelId = new JsonSlurper().parseText(body).channel.id
         println(channelId)
         println(1)
-        def string='Docker image is pushed, please type #vmCreate to start VM creation.'
+        def string='Microservice image is created and pushed into Docker registry, please type #nextAction to start further.'
         string =URLEncoder.encode(string, "UTF-8")
         get = new URL('https://slack.com/api/chat.postMessage?token=' + token + '&channel=' + channelId +'&text='+string+'&as_user=false&username=devOpsBot').openConnection()
         
