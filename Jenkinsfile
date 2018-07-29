@@ -5,7 +5,7 @@ def notifySlack(String buildStatus = 'STARTED') {
     buildStatus = buildStatus ?: 'SUCCESS'
     
     def msg = "${buildStatus}: `${env.JOB_NAME}` #${env.BUILD_NUMBER}:-Microservice image has been created and pushed to Docker registry by ankit.dixit"
-
+//Test
     slackSend(message: msg)
     userNotification(buildStatus)
 }
