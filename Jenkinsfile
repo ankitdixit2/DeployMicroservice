@@ -1,3 +1,5 @@
+import groovy.json.JsonSlurper
+
 def notifySlack(String buildStatus = 'STARTED') {
     // Build status of null means success.
     buildStatus = buildStatus ?: 'SUCCESS'
@@ -5,6 +7,49 @@ def notifySlack(String buildStatus = 'STARTED') {
     def msg = "${buildStatus}: `${env.JOB_NAME}` #${env.BUILD_NUMBER}:-Microservice image has been created and pushed to Docker registry by ankit.dixit"
 
     slackSend(message: msg)
+    userNotification(buildStatus)
+}
+def userNotification(String buildStatus)
+{ 
+    if(buildStatus.equals('SUCCESS'))
+    {
+    def token ='xoxb-318958501572-402684909218-YW8RZZeh6ZXEkjSM8rxEIDzT'
+    def userName='ankit.dixit'
+    def userList
+    def userId
+    def channelId
+    def get 
+    def body
+     get = new URL('https://slack.com/api/users.list?token=' + token).openConnection()
+    if(get.getResponseCode().equals(200)) {
+     body=get.getInputStream().getText()
+        userList = new JsonSlurper().parseText(body)
+        println("UserList success");
+                   
+                      for ( i = 0; i < userList.members.size(); i++) {
+                            if (userList.members[i].name == userName) {
+                                userId = userList.members[i].id
+                                println("Got id")
+                                break
+                            }
+                        }
+    
+        get = new URL(' https://slack.com/api/im.open?token=' + token + '&user=' + userId).openConnection()
+        if(get.getResponseCode().equals(200)) {
+        body=get.getInputStream().getText()
+        channelId = new JsonSlurper().parseText(body).channel.id
+        println(channelId)
+        println(1)
+        def string='Docker image is pushed, please type #vmCreate to start VM creation.'
+        string =URLEncoder.encode(string, "UTF-8")
+        get = new URL('https://slack.com/api/chat.postMessage?token=' + token + '&channel=' + channelId +'&text='+string+'&as_user=false&username=devOpsBot').openConnection()
+        
+        body=get.getInputStream().getText()
+        println(body)
+        println(2)       
+        }
+    }
+    }
 }
 node {
     checkout scm
