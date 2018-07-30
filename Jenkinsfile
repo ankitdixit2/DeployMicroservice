@@ -40,7 +40,7 @@ def userNotification(String buildStatus)
         channelId = new JsonSlurper().parseText(body).channel.id
         println(channelId)
         println(1)
-        def string='Microservice image is created and pushed into Docker registry, please type #nextAction to start further.'
+        def string='Microservice image is created and pushed into Docker registry, please type #vmCreate to start further.'
         string =URLEncoder.encode(string, "UTF-8")
         get = new URL('https://slack.com/api/chat.postMessage?token=' + token + '&channel=' + channelId +'&text='+string+'&as_user=false&username=devOpsBot').openConnection()
         
