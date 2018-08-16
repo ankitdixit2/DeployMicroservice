@@ -14,7 +14,7 @@ def userNotification(String buildStatus)
     if(buildStatus.equals('SUCCESS'))
     {
     def token ='xoxb-318958501572-402684909218-YW8RZZeh6ZXEkjSM8rxEIDzT'
-    def userName='ankit.dixit'
+    def userName='test_eia'
     def userList
     def userId
     def channelId
