@@ -1,7 +1,7 @@
 import groovy.json.JsonSlurper
 
 def notifySlack(String buildStatus = 'STARTED') {
-    //  Build  status of null means success.
+    // Build  status of null means success.
     buildStatus = buildStatus ?: 'SUCCESS'
     
     def msg = "${buildStatus}: `${env.JOB_NAME}` #${env.BUILD_NUMBER}:-Microservice image has been created and pushed into Docker registry by ${env.USER}"
