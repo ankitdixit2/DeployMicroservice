@@ -62,10 +62,10 @@ node {
          //    sh "docker login -u ****** -p *****"     
              sh "docker build -t users_service ./users-service"
              sh "docker build -t eiadatabase ./eiadatabase"
-             sh "docker tag users_service:latest eiaconsulting/docker_users-service"
-             sh "docker tag eiadatabase:latest eiaconsulting/docker_db"
-             sh "docker push eiaconsulting/docker_users-service"
-             sh "docker push eiaconsulting/docker_db"                                     
+             sh "docker tag users_service:latest 52.76.36.139:5000/docker_users-service"
+             sh "docker tag eiadatabase:latest 52.76.36.139:5000/docker_db"
+             sh "docker push 52.76.36.139:5000/docker_users-service"
+             sh "docker push 52.76.36.139:5000/docker_db"                                     
     }
         currentBuild.result = "SUCCESS"
         notifySlack(currentBuild.result)
